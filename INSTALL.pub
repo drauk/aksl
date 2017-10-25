@@ -1,0 +1,48 @@
+% src/aksl/INSTALL.pub   2017-10-26   Alan U. Kennington.
+% $Id$
+
+Hints on making and installing the AKSL C++ software library.
+This file is WORK IN PROGRESS.
+I'll write a better installation manual some day.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Create the rendezvous directory.
+
+The rendezvous directory is typically a directory like ~/pub,
+which can be used for installing AKSL-related software so that
+it can be used by AKSL application software packages.
+
+Set the shell environment variable SDIR to the rendezvous directory.
+
+setenv SDIR ~/pub
+
+The makefile will create subdirectories such as the following.
+
+$SDIR/bin
+$SDIR/include
+$SDIR/include/aksl
+$SDIR/lib
+$SDIR/src
+$SDIR/src/aksl
+$SDIR/src/aksl/include
+$SDIR/src/aksl/include/aksl
+
+The AKSL software will be installed into these directories.
+The command "make -f makefile.pub rvdirs" creates these directories.
+But you don't have to do that because the "install" target calls "rvdirs".
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+If more than one person will be creating AKSL application software packages,
+it may be more convenient to have a common area such as
+/usr/local/aksl instead of ~/pub for the rendezvous directory.
+
+===============================================================================
+Type "make -f makefile.pub" to create the file "libaksl.a".
+
+This will create a subdirectory "work" in the AKSL source directory.
+
+Any error messages or warnings are written to file "errorfile".
+
+Type "make -f makefile.pub install" to install the library file libaksl.a,
+the header files and the source files to the rendezvous directory.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

@@ -1,0 +1,372 @@
+# src/aksl/makefile.pub   2017-10-25   Alan U. Kennington.
+# $Id$
+#-----------------------------------------------------------------------------
+# Copyright (C) 1989-2017, Alan U. Kennington.
+# You may distribute this software under the terms of Alan U. Kennington's
+# modified Artistic Licence, as specified in the accompanying LICENCE file.
+#-----------------------------------------------------------------------------
+# Makefile (public) for the AKSL software, a C++ simulation library.
+
+# Imported environment variables:
+# SDIR                  # Rendezvous directory for AKSL software development.
+
+VERSION     = 0.9.5
+
+# The default environment is linux.
+all: clearerr libaksl.a
+
+# SDIR = rendezvous directory for shared simulation libraries.
+# Source and compiled stuff is exported to $S from this directory.
+# $S is typically something like ~/pub.
+# Subdirectories of ~/pub are expected to be created already.
+S           = $(SDIR)
+LIBDIR      = $S/lib
+INCDIR      = $S/include/aksl
+SRCDIR      = $S/src/aksl
+INCLUDES    = -I../include
+
+CPLUSPLUS   = g++
+CPLUSPLUS_E = g++ -E
+CC_OPTIONS  = -O $(INCLUDES)
+LN_S        = ln -s
+RANLIB      = ranlib
+
+# Location of all the exported header files.
+I           = include/aksl
+
+# These are the only .c and .h files which are saved.
+CFILES      = aksl.c aksldate.c aksldefs.c akslip.c aksltime.c args.c \
+	      array.c bbcod.c bmem.c boolvec.c calendar.c capsule.c \
+	      charbuf.c cod.c cpbuf.c datum.c dlist.c error.c \
+	      form.c geom2.c hashfn.c heap.c intlist.c \
+	      iso8859.c list.c nbytes.c newstat.c newstr.c \
+	      num.c numb.c numprint.c objptr.c oral.c \
+	      oralaksl.c rndm.c selector.c sfn.c ski.c \
+	      str.c termdefs.c token.c value.c vplist.c
+HFILES      = $I/aksl.h $I/aksldate.h $I/aksldefs.h \
+	      $I/akslip.h $I/aksltime.h $I/args.h $I/array.h \
+	      $I/bbcod.h $I/bindef.h $I/bmem.h $I/boole.h $I/boolvec.h \
+	      $I/calendar.h $I/capsule.h $I/charbuf.h $I/cod.h $I/cpbuf.h \
+	      $I/datum.h $I/dlist.h $I/error.h $I/form.h \
+	      $I/geom2.h $I/hashfn.h $I/heap.h \
+	      $I/intlist.h $I/list.h \
+	      $I/nbytes.h $I/newstat.h $I/newstr.h \
+	      $I/num.h $I/numb.h $I/numprint.h $I/objptr.h $I/options.h \
+	      $I/oral.h $I/oralaksl.h $I/phys.h $I/rndm.h \
+	      $I/selector.h $I/sfn.h $I/ski.h \
+	      $I/str.h $I/termdefs.h $I/token.h $I/value.h $I/vplist.h \
+	      $I/config.h
+LIBINSTALLS = libaksl.a aksl_h.dep aksl_c.dep
+INCINSTALLS = $(HFILES)
+SRCINSTALLS = \
+	LICENCE makefile.pub INSTALL $(CFILES)
+SRCINSTALLS_H = $(HFILES)
+
+# Subdirectories for separate compilation for each OS:
+WORKDIR     = work
+$(WORKDIR):
+	@if [ ! -d $@ ] ; then mkdir $@ ; fi
+
+# Make links in per-OS compilation subdirectories to source files.
+MAKE_PARENT_LINKS = \
+	for f in $? ; do if [ ! -h $$f ] ; then $(LN_S) ../$$f ; fi ; done
+MAKE_INCLUDE_LINK = \
+	if [ ! -h incl ] ; then $(LN_S) ../include/aksl incl ; fi
+MAKE_INCLUDE_LINK2 = \
+	if [ ! -h makefile.pub ] ; then $(LN_S) ../../makefile.pub ; fi
+SOURCE_TO_LINK = $(CFILES) makefile.pub
+
+link_work: .link_work
+.link_work: $(SOURCE_TO_LINK)
+	@cd $(WORKDIR); $(MAKE_PARENT_LINKS); $(MAKE_INCLUDE_LINK)
+	@cd include/aksl; $(MAKE_INCLUDE_LINK2)
+	@touch $@
+
+# Make rendezvous directory subdirectories.
+RV_DIRS = $S/bin $S/include $S/include/aksl $S/lib \
+	$S/src $S/src/aksl $S/src/aksl/include $S/src/aksl/include/aksl
+MAKE_RV_DIRS = \
+	for f in $? ; do if [ ! -d $$f ] ; then mkdir $$f; fi; done
+rvdirs: .make_rv_dirs
+.make_rv_dirs: $(RV_DIRS)
+	@touch $@
+$(RV_DIRS):
+	if [ ! -d $@ ] ; then mkdir $@ ; fi
+
+install: libaksl.a rvdirs .libinstall .incinstall .srcinstall
+
+.libinstall: $(LIBINSTALLS)
+	chmod go+rX $?
+	cp -p $? $(LIBDIR)
+	@touch $@
+	@echo --- lib install complete ---
+	@echo ""
+.incinstall: $(INCINSTALLS)
+	chmod go+rX $?
+	cp -p $? $(INCDIR)
+	@touch $@
+	@echo --- inc install complete ---
+	@echo ""
+.srcinstall_c: $(SRCINSTALLS)
+	chmod go+rX $?
+	cp -p $? $(SRCDIR)
+	@touch $@
+	@echo --- src install complete ---
+	@echo ""
+.srcinstall_h: $(SRCINSTALLS_H)
+	chmod go+rX $?
+	cp -p $? $(SRCDIR)/include/aksl
+	@touch $@
+	@echo --- src install complete --- headers ---
+	@echo ""
+.srcinstall: .srcinstall_c .srcinstall_h
+.srcinstall_h_sub:
+	cd include/aksl; make -f makefile.pub .srcinstall_h
+
+.SUFFIXES: .E .F $(SUFFIXES)
+
+# Suppress rule for making aksl out of aksl.c.
+.c:
+.c.o:
+	@echo -- Remaking \"$@\" because of:
+	@echo -- $?
+	$(CPLUSPLUS) -c $(CC_OPTIONS) $(EXTRA_OPTIONS) \
+	    $*.c 2>> errorfile 1>&2
+	@echo
+.c.E:
+	@echo -- Remaking \"$@\" because of:
+	@echo -- $?
+	$(CPLUSPLUS_E) $(CC_OPTIONS) \
+	    $*.c 2>> errorfile
+	@echo
+.c.F:
+	@echo -- Remaking \"$@\" because of:
+	@echo -- $?
+	$(CPLUSPLUS) -F $(CC_OPTIONS) \
+	    $*.c 2>> errorfile
+	@echo
+.c.s:
+	@echo -- Remaking \"$@\" because of:
+	@echo -- $?
+	$(CPLUSPLUS) -S $(CC_OPTIONS) \
+	    $*.c 2>> errorfile
+	@echo
+
+# File to help minimize remaking of software in other directories:
+HDEPFILES = aksl_h.dep
+CDEPFILES = aksl_c.dep
+$(HDEPFILES): $(HFILES)
+	@touch $@
+$(CDEPFILES): $(CFILES)
+	@touch $@
+
+#-------------------------------------------------------------------------------
+# The following set of macros is necessitated by the apparent fact that
+# some compilers do not have the ANSI C __TIME__ and __DATE__ definitions.
+# If you don't have "date" or "expr", just comment out the following 3 macros:
+# Note that sunos4.1.3 "date" does not have %Y format.
+# UTCDATE     = `date -u '+UTC 19%y %h %d %a %T'`
+UTCDATE     = `date -u '+UTC %Y %h %d %a %T'`
+LOCDATE     = `date`
+BOTHDATES   = $(LOCDATE) ($(UTCDATE))
+DATECALC    = d="$(BOTHDATES)";
+DATE        = "-DDATESTRING=\"$$d\"" "-DMACHINESTRING=\"`hostname`\""
+MAKEDATE    = $(DATECALC) \
+	      $(CPLUSPLUS) $(CC_OPTIONS) -c $(DATE) \
+	      aksldate.c 2>> errorfile 1>&2
+
+# Dependencies of c-files and h-files:
+# Fiendishly clever dependency determination scheme (patent not yet pending):
+#                           This column is a list of included header files.
+
+# Macro     basic           other dependencies
+CONFIG_H    = $I/config.h
+
+AKSLDATE_H  = $I/aksldate.h
+aksldate.o:   aksldate.c        $(AKSLDATE_H)
+	$(MAKEDATE)
+
+OPTIONS_H   = $I/options.h
+
+BOOLE_H     = $I/boole.h
+
+BINDEF_H    = $I/bindef.h
+
+NUMB_H      = $I/numb.h
+numb.o:     $(NUMB_H)
+
+NUM_H       = $I/num.h          $(NUMB_H)
+num.o:      $(NUM_H)
+
+NBYTES_H    = $I/nbytes.h       $(NUMB_H) $(BOOLE_H) $(CONFIG_H)
+nbytes.o:   $(NBYTES_H)
+
+PHYS_H      = $I/phys.h
+
+AKSLDEFS_H  = $I/aksldefs.h
+aksldefs.o: $(AKSLDEFS_H)
+
+NEWSTR_H    = $I/newstr.h       $(BOOLE_H) $(CONFIG_H)
+newstr.o:   $(NEWSTR_H)         $(AKSLDEFS_H)
+
+AKSLTIME_H  = $I/aksltime.h
+aksltime.o: $(AKSLTIME_H)       $(AKSLDEFS_H) $(CONFIG_H)
+
+SIGMON_H    = $I/sigmon.h       $(BOOLE_H) $(CONFIG_H)
+sigmon.o:   $(SIGMON_H)
+
+NUMPRINT_H  = $I/numprint.h     $(NBYTES_H) $(AKSLDEFS_H)
+numprint.o: $(NUMPRINT_H)       $(NUMB_H)
+
+BMEM_H      = $I/bmem.h
+bmem.o:     $(BMEM_H)           $(NUMPRINT_H) $(AKSLDEFS_H)
+
+CALENDAR_H  = $I/calendar.h
+calendar.o: $(CALENDAR_H)       $(NUMPRINT_H) $(NUMB_H) $(AKSLDEFS_H) \
+				$(CONFIG_H)
+
+ARGS_H      = $I/args.h         $(BOOLE_H)
+args.o:     $(ARGS_H)
+
+ARRAY_H     = $I/array.h        $(AKSLDEFS_H) $(NUMB_H) $(BOOLE_H)
+array.o:    $(ARRAY_H)
+
+BOOLVEC_H   = $I/boolvec.h      $(AKSLDEFS_H) $(NUMB_H) $(BINDEF_H) $(BOOLE_H)
+boolvec.o:  $(BOOLVEC_H)
+
+LIST_H      = $I/list.h         $(BOOLE_H)
+list.o:     $(LIST_H)
+
+DLIST_H     = $I/dlist.h        $(BOOLE_H)
+dlist.o:    $(DLIST_H)
+
+INTLIST_H   = $I/intlist.h      $(LIST_H)
+intlist.o:  $(INTLIST_H)
+
+VPLIST_H    = $I/vplist.h       $(LIST_H) $(NEWSTR_H) $(BMEM_H)
+vplist.o:   $(VPLIST_H)
+
+NEWSTAT_H   = $I/newstat.h      $(BOOLE_H)
+newstat.o:  $(NEWSTAT_H)        $(VPLIST_H)
+
+SFN_H       = $I/sfn.h          $(LIST_H) $(AKSLDEFS_H) $(NUMB_H)
+sfn.o:      $(SFN_H)
+
+GEOM2_H     = $I/geom2.h        $(LIST_H) $(AKSLDEFS_H) $(NUMB_H)
+geom2.o:    $(GEOM2_H)
+
+CHARBUF_H   = $I/charbuf.h      $(NBYTES_H) $(BOOLE_H)
+charbuf.o:  $(CHARBUF_H)
+
+CPBUF_H     = $I/cpbuf.h        $(LIST_H) $(BMEM_H) $(AKSLDEFS_H) $(NUMB_H)
+cpbuf.o:    $(CPBUF_H)          $(NUMPRINT_H)
+
+FORM_H      = $I/form.h         $(CONFIG_H)
+form.o:     $(FORM_H)           $(CHARBUF_H) $(NUMPRINT_H) $(AKSLDEFS_H)
+
+COD_H       = $I/cod.h          $(NUMB_H)
+cod.o:      $(COD_H)            $(NUMPRINT_H)
+
+BBCOD_H     = $I/bbcod.h        $(NUMB_H)
+bbcod.o:    $(BBCOD_H)          $(NUMPRINT_H)
+
+CAPSULE_H   = $I/capsule.h      $(COD_H) $(LIST_H) $(NUMB_H)
+capsule.o:  $(CAPSULE_H)        $(FORM_H) $(NUMPRINT_H) $(AKSLDEFS_H)
+
+HEAP_H      = $I/heap.h         $(AKSLDEFS_H)
+heap.o:     $(HEAP_H)
+
+HASHFN_H    = $I/hashfn.h       $(COD_H) $(VPLIST_H)
+hashfn.o:   $(HASHFN_H)
+
+RNDM_H      = $I/rndm.h         $(AKSLDEFS_H)
+rndm.o:     $(RNDM_H)
+
+STR_H       = $I/str.h          $(LIST_H) $(NEWSTR_H) $(BOOLE_H)
+str.o:      $(STR_H)            $(AKSLDEFS_H)
+
+SKI_H       = $I/ski.h          $(STR_H) $(LIST_H) $(BOOLE_H)
+ski.o:      $(SKI_H)            $(AKSLDEFS_H) $(CONFIG_H)
+
+ERROR_H     = $I/error.h        $(SKI_H)
+error.o:    $(ERROR_H)
+
+AKSLIP_H    = $I/akslip.h       $(ERROR_H) $(NBYTES_H) $(HASHFN_H) $(NUMB_H) \
+				$(AKSLDEFS_H) $(BOOLE_H)
+akslip.o:   $(AKSLIP_H)         $(NUMPRINT_H)
+
+SELECTOR_H  = $I/selector.h     $(AKSLIP_H) $(HEAP_H) $(LIST_H) $(BMEM_H) \
+				$(NUMB_H) $(AKSLTIME_H) $(AKSLDEFS_H) $(CONFIG_H)
+selector.o: $(SELECTOR_H)       $(CHARBUF_H) $(NUMPRINT_H)
+
+TERMDEFS_H  = $I/termdefs.h     $(LIST_H) $(AKSLDEFS_H)
+termdefs.o: $(TERMDEFS_H)       $(STR_H) $(NUMPRINT_H) $(CONFIG_H)
+
+DATUM_H     = $I/datum.h        $(LIST_H) $(ERROR_H) $(AKSLDEFS_H)
+datum.o:    $(DATUM_H)
+
+VALUE_H     = $I/value.h        $(DATUM_H) $(LIST_H) $(BMEM_H) $(AKSLDEFS_H)
+value.o:    $(VALUE_H)          $(NUMPRINT_H)
+
+AKSL_H      = $I/aksl.h         $(VALUE_H) $(DATUM_H) $(SKI_H) $(LIST_H) \
+				$(HEAP_H) $(BMEM_H) $(AKSLDEFS_H) $(BOOLE_H) \
+				$(OPTIONS_H)
+aksl.o:     $(AKSL_H)           $(NUMPRINT_H)
+
+OBJPTR_H    = $I/objptr.h       $(AKSL_H) $(STR_H) $(LIST_H) $(AKSLDEFS_H) \
+				$(BOOLE_H)
+objptr.o:   $(OBJPTR_H)
+
+TOKEN_H     = $I/token.h        $(STR_H) $(CHARBUF_H)
+token.o:    $(TOKEN_H)
+
+ORAL_H      = $I/oral.h         $(TOKEN_H) $(ERROR_H)
+oral.o:     $(ORAL_H)
+
+ORALAKSL_H  = $I/oralaksl.h     $(AKSL_H)
+oralaksl.o: $(ORALAKSL_H)       $(ORAL_H)
+
+AKSLOBJS    = oralaksl.o oral.o token.o objptr.o aksl.o value.o datum.o \
+	      termdefs.o selector.o akslip.o error.o ski.o str.o \
+	      rndm.o hashfn.o heap.o capsule.o bbcod.o cod.o form.o cpbuf.o \
+	      charbuf.o geom2.o sfn.o newstat.o \
+	      vplist.o intlist.o dlist.o \
+	      list.o boolvec.o array.o args.o calendar.o bmem.o numprint.o \
+	      aksltime.o newstr.o \
+	      aksldefs.o nbytes.o num.o numb.o aksldate.o
+
+# For forcing the order of compilation:
+AKSLDEPS    = numb.o num.o nbytes.o aksldefs.o newstr.o aksltime.o \
+	      numprint.o bmem.o calendar.o args.o \
+	      array.o boolvec.o list.o dlist.o intlist.o \
+	      vplist.o newstat.o sfn.o \
+	      geom2.o charbuf.o cpbuf.o form.o \
+	      cod.o bbcod.o capsule.o heap.o hashfn.o rndm.o \
+	      str.o ski.o error.o akslip.o selector.o termdefs.o datum.o \
+	      value.o aksl.o objptr.o token.o oral.o oralaksl.o
+
+libaksl: $(AKSLDEPS) libaksl0.a
+libaksl0.a: $(AKSLOBJS)
+	ar rv $@ $?
+	$(MAKEDATE)
+	ar rv $@ aksldate.o
+	$(RANLIB) $@
+
+./$(WORKDIR)/libaksl0.a: $(WORKDIR) link_work
+	@echo Compilation of \"$@\": `date`. | cat >> $(WORKDIR)/errorfile
+	@echo >> $(WORKDIR)/errorfile
+	@rm -f errorfile
+	@$(LN_S) $(WORKDIR)/errorfile
+	cd ./$(WORKDIR); make -f makefile.pub I=incl libaksl
+libaksl.a: ./$(WORKDIR)/libaksl0.a
+	cp -p ./$(WORKDIR)/libaksl0.a $@
+	@chmod go+rX $@
+
+#-------------------------------------------------------------------------------
+# Re-initialise the error report file:
+clearerr:
+	@touch errorfile
+	@echo Compilation of \"aksl\" library: `date`. | cat > errorfile
+	@echo >> errorfile
+clean:
+	rm -fr $(AKSLOBJS) libaksl0.a libaksl.a work .link_work errorfile
