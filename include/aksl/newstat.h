@@ -1,5 +1,5 @@
 // src/aksl/newstat.h   2017-10-25   Alan U. Kennington.
-// $Id$
+// $Id: src/aksl/include/aksl/newstat.h be54be8f6d 2017-10-25 10:29:45Z Alan U. Kennington $
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2017, Alan U. Kennington.
 You may distribute this software under the terms of Alan U. Kennington's

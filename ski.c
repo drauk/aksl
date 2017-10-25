@@ -1,5 +1,5 @@
 // src/aksl/ski.c   2017-10-26   Alan U. Kennington.
-// $Id$
+// $Id: src/aksl/ski.c 34ae92a277 2017-10-25 13:16:08Z Alan U. Kennington $
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2017, Alan U. Kennington.
 You may distribute this software under the terms of Alan U. Kennington's
