@@ -59,7 +59,7 @@ HFILES      = $I/aksl.h $I/aksldate.h $I/aksldefs.h \
 LIBINSTALLS = libaksl.a aksl_h.dep aksl_c.dep
 INCINSTALLS = $(HFILES)
 SRCINSTALLS = \
-	LICENCE makefile.pub INSTALL $(CFILES)
+	LICENCE makefile INSTALL $(CFILES)
 SRCINSTALLS_H = $(HFILES)
 
 # Subdirectories for separate compilation for each OS:
@@ -73,8 +73,8 @@ MAKE_PARENT_LINKS = \
 MAKE_INCLUDE_LINK = \
 	if [ ! -h incl ] ; then $(LN_S) ../include/aksl incl ; fi
 MAKE_INCLUDE_LINK2 = \
-	if [ ! -h makefile.pub ] ; then $(LN_S) ../../makefile.pub ; fi
-SOURCE_TO_LINK = $(CFILES) makefile.pub
+	if [ ! -h makefile ] ; then $(LN_S) ../../makefile ; fi
+SOURCE_TO_LINK = $(CFILES) makefile
 
 link_work: .link_work
 .link_work: $(SOURCE_TO_LINK)
@@ -121,7 +121,7 @@ install: libaksl.a rvdirs .libinstall .incinstall .srcinstall
 	@echo ""
 .srcinstall: .srcinstall_c .srcinstall_h
 .srcinstall_h_sub:
-	cd include/aksl; make -f makefile.pub .srcinstall_h
+	cd include/aksl; make -f makefile .srcinstall_h
 
 .SUFFIXES: .E .F $(SUFFIXES)
 
@@ -357,7 +357,7 @@ libaksl0.a: $(AKSLOBJS)
 	@echo >> $(WORKDIR)/errorfile
 	@rm -f errorfile
 	@$(LN_S) $(WORKDIR)/errorfile
-	cd ./$(WORKDIR); make -f makefile.pub I=incl libaksl
+	cd ./$(WORKDIR); make -f makefile I=incl libaksl
 libaksl.a: ./$(WORKDIR)/libaksl0.a
 	cp -p ./$(WORKDIR)/libaksl0.a $@
 	@chmod go+rX $@
