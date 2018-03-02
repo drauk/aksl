@@ -1,4 +1,4 @@
-// src/aksl/value.h   2017-10-25   Alan U. Kennington.
+// src/aksl/value.h   2018-3-3   Alan U. Kennington.
 // $Id: src/aksl/include/aksl/value.h be54be8f6d 2017-10-25 10:29:45Z Alan U. Kennington $
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2017, Alan U. Kennington.
@@ -179,9 +179,9 @@ public:
 struct valuelist: private s2list {
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
     value* first() { return (value*)s2list::first(); }
     value* last() { return (value*)s2list::last(); }
     void append(value* p) { s2list::append(p); }
@@ -192,7 +192,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(value* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(valuelist& l) { s2list::swallow(&l); }
     void clear() { for (value* p = first(); p; )
         { value* q = p->next(); delete p; p = q; } clearptrs(); }
@@ -284,13 +284,13 @@ struct tagvalue: public value {
 //----------------------//
 struct tagvaluelist: private s2list {
 protected:
-    s2list::clearptrs;
+    using s2list::clearptrs;
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
-    s2list::position;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
+    using s2list::position;
     tagvalue* first() const { return (tagvalue*)s2list::first(); }
     tagvalue* last() const { return (tagvalue*)s2list::last(); }
     tagvalue* element(long i) const
@@ -304,7 +304,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(tagvalue* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(tagvaluelist& l) { s2list::swallow(&l); }
     void gulp(tagvaluelist& l) { s2list::gulp(&l); }
     void clear() { for (tagvalue* p = first(); p; )
@@ -327,9 +327,9 @@ Apart from the name, this is the same as a valuelist.
 struct colonlist: private s2list {
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
     value* first() { return (value*)s2list::first(); }
     value* last() { return (value*)s2list::last(); }
     void append(value* p) { s2list::append(p); }
@@ -340,7 +340,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(value* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(colonlist& l) { s2list::swallow(&l); }
     void clear() { for (value* p = first(); p; )
         { value* q = p->next(); delete p; p = q; } clearptrs(); }

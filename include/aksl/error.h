@@ -1,4 +1,4 @@
-// src/aksl/error.h   2017-10-25   Alan U. Kennington.
+// src/aksl/error.h   2018-3-3   Alan U. Kennington.
 // $Id: src/aksl/include/aksl/error.h be54be8f6d 2017-10-25 10:29:45Z Alan U. Kennington $
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2017, Alan U. Kennington.
@@ -106,6 +106,7 @@ public:
 //    hashtab_strings& operator=(const hashtab_strings& x) {}
 //    hashtab_strings(const hashtab_strings& x) {}
     // Construct from null-terminated array:
+//    hashtab_strings(const stringkey* strings);
     hashtab_strings(stringkey* strings);
     ~hashtab_strings() {}
     }; // End of struct hashtab_strings.

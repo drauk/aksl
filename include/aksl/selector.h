@@ -1,4 +1,4 @@
-// src/aksl/selector.h   2017-10-25   Alan U. Kennington.
+// src/aksl/selector.h   2018-3-3   Alan U. Kennington.
 // $Id: src/aksl/include/aksl/selector.h be54be8f6d 2017-10-25 10:29:45Z Alan U. Kennington $
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2017, Alan U. Kennington.
@@ -176,10 +176,10 @@ public:
 struct select_handlerlist: private s2list {
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
-    s2list::position;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
+    using s2list::position;
     select_handler* first() const { return (select_handler*)s2list::first(); }
     select_handler* last() const { return (select_handler*)s2list::last(); }
     select_handler* element(long i) const
@@ -193,7 +193,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(select_handler* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(select_handlerlist& l) { s2list::swallow(&l); }
     void gulp(select_handlerlist& l) { s2list::gulp(&l); }
     void clear() { for (select_handler* p = first(); p; )
@@ -367,13 +367,13 @@ public:
 //----------------------//
 struct udp_port_handlist: private s2list {
 protected:
-    s2list::clearptrs;
+    using s2list::clearptrs;
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
-    s2list::position;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
+    using s2list::position;
     udp_port_hand* first() const { return (udp_port_hand*)s2list::first(); }
     udp_port_hand* last() const { return (udp_port_hand*)s2list::last(); }
     udp_port_hand* element(long i) const
@@ -387,7 +387,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(udp_port_hand* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(udp_port_handlist& l) { s2list::swallow(&l); }
     void gulp(udp_port_handlist& l) { s2list::gulp(&l); }
     void clear() { for (udp_port_hand* p = first(); p; )
@@ -541,13 +541,13 @@ public:
 //----------------------//
 struct tcp_contextlist: private s2list {
 protected:
-    s2list::clearptrs;
+    using s2list::clearptrs;
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
-    s2list::position;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
+    using s2list::position;
     tcp_context* first() const { return (tcp_context*)s2list::first(); }
     tcp_context* last() const { return (tcp_context*)s2list::last(); }
     tcp_context* element(long i) const
@@ -561,7 +561,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(tcp_context* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(tcp_contextlist& l) { s2list::swallow(&l); }
     void gulp(tcp_contextlist& l) { s2list::gulp(&l); }
     void clear() { for (tcp_context* p = first(); p; )
@@ -680,8 +680,8 @@ public:
     // The routine members:
     const timer* first() const { return (const timer*)min_tim_heap::first(); }
     const timer* last() const { return (const timer*)min_tim_heap::last(); }
-    min_tim_heap::empty;
-    min_tim_heap::length;
+    using min_tim_heap::empty;
+    using min_tim_heap::length;
 
     // The cast in the next line should not be necessary!
     void insert(timer* p) { min_tim_heap::insert((tim*)p); }
@@ -705,7 +705,7 @@ struct timer_heap_traversal: private heap_traversal {
 
 public:
     timer* next() { return (timer*)heap_traversal::next(); }
-    heap_traversal::init;
+    using heap_traversal::init;
 
 //    timer_heap_traversal& operator=(const timer_heap_traversal& x) {}
 //    timer_heap_traversal(const timer_heap_traversal& x) {};

@@ -1,4 +1,4 @@
-// src/aksl/str.h   2017-10-25   Alan U. Kennington.
+// src/aksl/str.h   2018-3-3   Alan U. Kennington.
 // $Id: src/aksl/include/aksl/str.h be54be8f6d 2017-10-25 10:29:45Z Alan U. Kennington $
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2017, Alan U. Kennington.
@@ -265,16 +265,16 @@ public:
 //----------------------//
 struct c_stringlist: private s2list {
 public:
-    s2list::empty;
-    s2list::length;
-    s2list::position;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::position;
     c_stringlink* first() const { return (c_stringlink*)s2list::first(); }
     c_stringlink* last() const { return (c_stringlink*)s2list::last(); }
     c_stringlink* element(long i) const
         { return (c_stringlink*)s2list::element(i); }
     void append(c_stringlink* p) { s2list::append(p); }
     void prepend(c_stringlink* p) { s2list::prepend(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     c_stringlink* popfirst() { return (c_stringlink*)s2list::popfirst(); }
     c_stringlink* poplast() { return (c_stringlink*)s2list::poplast(); }
     void delfirst() { delete popfirst(); }
@@ -324,9 +324,9 @@ public:
 //----------------------//
 struct c_stringlistlist: private s2list {
 public:
-    s2list::empty;
-    s2list::length;
-    s2list::position;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::position;
     c_stringlistlink* first() const
         { return (c_stringlistlink*)s2list::first(); }
     c_stringlistlink* last() const { return (c_stringlistlink*)s2list::last(); }
@@ -334,7 +334,7 @@ public:
         { return (c_stringlistlink*)s2list::element(i); }
     void append(c_stringlistlink* p) { s2list::append(p); }
     void prepend(c_stringlistlink* p) { s2list::prepend(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     c_stringlistlink* popfirst()
         { return (c_stringlistlink*)s2list::popfirst(); }
     c_stringlistlink* poplast() { return (c_stringlistlink*)s2list::poplast(); }

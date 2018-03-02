@@ -1,4 +1,4 @@
-// src/aksl/geom2.h   2017-10-25   Alan U. Kennington.
+// src/aksl/geom2.h   2018-3-3   Alan U. Kennington.
 // $Id: src/aksl/include/aksl/geom2.h be54be8f6d 2017-10-25 10:29:45Z Alan U. Kennington $
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2017, Alan U. Kennington.
@@ -151,9 +151,9 @@ struct position2: public slink {
 struct position2list: private s2list {
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
     position2* first() { return (position2*)s2list::first(); }
     position2* last() { return (position2*)s2list::last(); }
     void append(position2* p) { s2list::append(p); }
@@ -165,7 +165,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(position2* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(position2list& l) { s2list::swallow(&l); }
 #ifdef SUNOS4_COMP_VERSION3_0_1
     inline void clear();
@@ -225,13 +225,13 @@ struct motion2_state: public position2 {
 //----------------------//
 struct motion2_statelist: private s2list {
 protected:
-    s2list::clearptrs;
+    using s2list::clearptrs;
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
-    s2list::position;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
+    using s2list::position;
     motion2_state* first() const { return (motion2_state*)s2list::first(); }
     motion2_state* last() const { return (motion2_state*)s2list::last(); }
     motion2_state* element(long i) const
@@ -245,7 +245,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(motion2_state* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(motion2_statelist& l) { s2list::swallow(&l); }
     void gulp(motion2_statelist& l) { s2list::gulp(&l); }
     void clear() { for (motion2_state* p = first(); p; )

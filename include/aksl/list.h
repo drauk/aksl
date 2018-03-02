@@ -1,4 +1,4 @@
-// src/aksl/list.h   2017-10-25   Alan U. Kennington.
+// src/aksl/list.h   2018-3-3   Alan U. Kennington.
 // $Id: src/aksl/include/aksl/list.h be54be8f6d 2017-10-25 10:29:45Z Alan U. Kennington $
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2017, Alan U. Kennington.
@@ -140,13 +140,13 @@ protected:
     void clearptrs() { s2list::clearptrs(); n_elements = 0; }
 public:
     // The routine members:
-    s2list::empty;
+    using s2list::empty;
     long length() const { return n_elements; }
-    s2list::first;
-    s2list::last;
-    s2list::element;
-    s2list::member;
-    s2list::position;
+    using s2list::first;
+    using s2list::last;
+    using s2list::element;
+    using s2list::member;
+    using s2list::position;
     void append(slink* p) { s2list::append(p); if (p) n_elements += 1; }
     void prepend(slink* p) { s2list::prepend(p); if (p) n_elements += 1; }
     slink* popfirst()
@@ -194,8 +194,8 @@ public:
 //----------------------//
 struct reflist: public s2list {
 public:
-    s2list::empty;
-    s2list::length;
+    using s2list::empty;
+    using s2list::length;
     ref* first() const { return (ref*)s2list::first(); }
     ref* last() const { return (ref*)s2list::last(); }
     void append(ref* c) { s2list::append(c); }

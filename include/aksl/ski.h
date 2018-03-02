@@ -1,4 +1,4 @@
-// src/aksl/ski.h   2017-10-25   Alan U. Kennington.
+// src/aksl/ski.h   2018-3-3   Alan U. Kennington.
 // $Id: src/aksl/include/aksl/ski.h be54be8f6d 2017-10-25 10:29:45Z Alan U. Kennington $
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2017, Alan U. Kennington.
@@ -44,6 +44,7 @@ skilist::
 //      stringkey::     //
 //----------------------//
 struct stringkey {
+//    const char* s;
     char* s;
     long i;
     }; // End of struct stringkey.
@@ -68,8 +69,8 @@ public:
     // The routine members:
     strng* first() const { return (strng*)s2list::first(); }
     strng* last() const { return (strng*)s2list::last(); }
-    s2list::empty;
-    s2list::length;
+    using s2list::empty;
+    using s2list::length;
     void append(strng* p) { s2list::append(p); }
     void prepend(strng* p) { s2list::prepend(p); }
     strng* remove(strng* p) { return (strng*)s2list::remove(p); }
@@ -78,7 +79,7 @@ public:
     void delremove(strng* p) { delete remove(p); }
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void clear() { for (strng* p = first(); p; )
         { strng* q = p->next(); delete p; p = q; } clearptrs(); }
 
@@ -125,8 +126,8 @@ private:
 public:
     ski2* first() const { return (ski2*)s2list::first(); }
     ski2* last() const { return (ski2*)s2list::last(); }
-    s2list::empty;
-    s2list::length;
+    using s2list::empty;
+    using s2list::length;
     ski2* remove(ski2* p) { return (ski2*)s2list::remove(p); }
     ski2* popfirst() { return (ski2*)s2list::popfirst(); }
     ski2* poplast() { return (ski2*)s2list::poplast(); }
@@ -194,8 +195,8 @@ public:
     // More routine members:
     ski* first() const { return (ski*)s2list::first(); }
     ski* last() const { return (ski*)s2list::last(); }
-    s2list::empty;
-    s2list::length;
+    using s2list::empty;
+    using s2list::length;
     ski* remove(ski* p) { return (ski*)s2list::remove(p); }
     ski* popfirst() { return (ski*)s2list::popfirst(); }
     ski* poplast() { return (ski*)s2list::poplast(); }

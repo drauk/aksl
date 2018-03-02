@@ -1,4 +1,4 @@
-// src/aksl/sfn.h   2017-10-25   Alan U. Kennington.
+// src/aksl/sfn.h   2018-3-3   Alan U. Kennington.
 // $Id: src/aksl/include/aksl/sfn.h be54be8f6d 2017-10-25 10:29:45Z Alan U. Kennington $
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2017, Alan U. Kennington.
@@ -114,9 +114,9 @@ struct tfnlist: private s2list {
 friend struct sfn;
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
     tfn* first() const { return (tfn*)s2list::first(); }
     tfn* last() const { return (tfn*)s2list::last(); }
 protected:
@@ -129,7 +129,7 @@ protected:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(tfn* p) { delete remove(p); }
-//    s2list::insertafter;
+//    using s2list::insertafter;
     void insertafter(tfn* p1, tfn* p2) { s2list::insertafter(p1, p2); }
     void swallow(tfnlist& l) { s2list::swallow(&l); }
     void gulp(tfnlist& l) { s2list::gulp(&l); }
@@ -230,9 +230,9 @@ public:
 struct sfnlist: private s2list {
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
 //    sfn* first() const { return (sfn*)s2list::first(); }
     sfn* first() { return (sfn*)s2list::first(); }
     sfn* last() const { return (sfn*)s2list::last(); }
@@ -245,7 +245,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(sfn* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(sfnlist& l) { s2list::swallow(&l); }
     void gulp(sfnlist& l) { s2list::gulp(&l); }
     void clear() { for (sfn* p = first(); p; )

@@ -1,4 +1,4 @@
-// src/aksl/cpbuf.h   2017-10-25   Alan U. Kennington.
+// src/aksl/cpbuf.h   2018-3-3   Alan U. Kennington.
 // $Id: src/aksl/include/aksl/cpbuf.h be54be8f6d 2017-10-25 10:29:45Z Alan U. Kennington $
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2017, Alan U. Kennington.
@@ -190,13 +190,13 @@ public:
 //----------------------//
 struct cp_pktlist: private s2list {
 protected:
-    s2list::clearptrs;
+    using s2list::clearptrs;
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
-    s2list::position;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
+    using s2list::position;
     cp_pkt* first() const { return (cp_pkt*)s2list::first(); }
     cp_pkt* last() const { return (cp_pkt*)s2list::last(); }
     cp_pkt* element(long i) const
@@ -210,7 +210,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(cp_pkt* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(cp_pktlist& l) { s2list::swallow(&l); }
     void gulp(cp_pktlist& l) { s2list::gulp(&l); }
     void clear() { for (cp_pkt* p = first(); p; )
@@ -260,13 +260,13 @@ public:
 //----------------------//
 struct udp_cp_pktlist: private cp_pktlist {
 protected:
-    cp_pktlist::clearptrs;
+    using cp_pktlist::clearptrs;
 public:
     // The routine members:
-    cp_pktlist::empty;
-    cp_pktlist::length;
-    cp_pktlist::member;
-    cp_pktlist::position;
+    using cp_pktlist::empty;
+    using cp_pktlist::length;
+    using cp_pktlist::member;
+    using cp_pktlist::position;
     udp_cp_pkt* first() const { return (udp_cp_pkt*)cp_pktlist::first(); }
     udp_cp_pkt* last() const { return (udp_cp_pkt*)cp_pktlist::last(); }
     udp_cp_pkt* element(long i) const
@@ -280,7 +280,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(udp_cp_pkt* p) { delete remove(p); }
-    cp_pktlist::insertafter;
+    using cp_pktlist::insertafter;
 //    void swallow(udp_cp_pktlist& l) { cp_pktlist::swallow(&l); }
 //    void gulp(udp_cp_pktlist& l) { cp_pktlist::gulp(&l); }
     void clear() { for (udp_cp_pkt* p = first(); p; )
@@ -544,12 +544,12 @@ public:
 //----------------------//
 struct cp_bufferlist: private s2list {
 protected:
-    s2list::clearptrs;
+    using s2list::clearptrs;
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
     cp_buffer* first() const { return (cp_buffer*)s2list::first(); }
     cp_buffer* last() const { return (cp_buffer*)s2list::last(); }
     void append(cp_buffer* p) { s2list::append(p); }
@@ -561,7 +561,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(cp_buffer* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(cp_bufferlist& l) { s2list::swallow(&l); }
     void gulp(cp_bufferlist& l) { s2list::gulp(&l); }
     void clear() { for (cp_buffer* p = first(); p; )

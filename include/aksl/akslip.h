@@ -177,13 +177,13 @@ struct tcp_packet: public slink {
 //----------------------//
 struct tcp_packetlist: private s2list {
 protected:
-    s2list::clearptrs;
+    using s2list::clearptrs;
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
-    s2list::position;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
+    using s2list::position;
     tcp_packet* first() const { return (tcp_packet*)s2list::first(); }
     tcp_packet* last() const { return (tcp_packet*)s2list::last(); }
     tcp_packet* element(long i) const
@@ -197,7 +197,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(tcp_packet* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(tcp_packetlist& l) { s2list::swallow(&l); }
     void gulp(tcp_packetlist& l) { s2list::gulp(&l); }
     void clear() { for (tcp_packet* p = first(); p; )
@@ -242,13 +242,13 @@ struct ip_option: public slink {
 //----------------------//
 struct ip_optionlist: private s2list {
 protected:
-    s2list::clearptrs;
+    using s2list::clearptrs;
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
-    s2list::position;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
+    using s2list::position;
     ip_option* first() const { return (ip_option*)s2list::first(); }
     ip_option* last() const { return (ip_option*)s2list::last(); }
     ip_option* element(long i) const
@@ -262,7 +262,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(ip_option* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(ip_optionlist& l) { s2list::swallow(&l); }
     void gulp(ip_optionlist& l) { s2list::gulp(&l); }
     void clear() { for (ip_option* p = first(); p; )
@@ -345,13 +345,13 @@ struct ip_packet: public slink {
 //----------------------//
 struct ip_packetlist: private s2list {
 protected:
-    s2list::clearptrs;
+    using s2list::clearptrs;
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
-    s2list::position;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
+    using s2list::position;
     ip_packet* first() const { return (ip_packet*)s2list::first(); }
     ip_packet* last() const { return (ip_packet*)s2list::last(); }
     ip_packet* element(long i) const
@@ -365,7 +365,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(ip_packet* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(ip_packetlist& l) { s2list::swallow(&l); }
     void gulp(ip_packetlist& l) { s2list::gulp(&l); }
     void clear() { for (ip_packet* p = first(); p; )
@@ -435,13 +435,13 @@ public:
 //----------------------//
 struct udp_portlist: private s2list {
 protected:
-    s2list::clearptrs;
+    using s2list::clearptrs;
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
-    s2list::position;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
+    using s2list::position;
     udp_port* first() const { return (udp_port*)s2list::first(); }
     udp_port* last() const { return (udp_port*)s2list::last(); }
     udp_port* element(long i) const
@@ -455,7 +455,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(udp_port* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(udp_portlist& l) { s2list::swallow(&l); }
     void gulp(udp_portlist& l) { s2list::gulp(&l); }
     void clear() { for (udp_port* p = first(); p; )
@@ -559,13 +559,13 @@ public:
 //----------------------//
 struct ip_iflist: private s2list {
 protected:
-    s2list::clearptrs;
+    using s2list::clearptrs;
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
-    s2list::position;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
+    using s2list::position;
     ip_if* first() const { return (ip_if*)s2list::first(); }
     ip_if* last() const { return (ip_if*)s2list::last(); }
     ip_if* element(long i) const
@@ -579,7 +579,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(ip_if* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(ip_iflist& l) { s2list::swallow(&l); }
     void gulp(ip_iflist& l) { s2list::gulp(&l); }
     void clear() { for (ip_if* p = first(); p; )
@@ -672,13 +672,13 @@ struct ip_switch: public ip_map_table, public slink {
 //----------------------//
 struct ip_switchlist: private s2list {
 protected:
-    s2list::clearptrs;
+    using s2list::clearptrs;
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
-    s2list::position;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
+    using s2list::position;
     ip_switch* first() const { return (ip_switch*)s2list::first(); }
     ip_switch* last() const { return (ip_switch*)s2list::last(); }
     ip_switch* element(long i) const
@@ -692,7 +692,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(ip_switch* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(ip_switchlist& l) { s2list::swallow(&l); }
     void gulp(ip_switchlist& l) { s2list::gulp(&l); }
     void clear() { for (ip_switch* p = first(); p; )

@@ -1,4 +1,4 @@
-// src/aksl/token.h   2017-10-25   Alan U. Kennington.
+// src/aksl/token.h   2018-3-3   Alan U. Kennington.
 // $Id: src/aksl/include/aksl/token.h be54be8f6d 2017-10-25 10:29:45Z Alan U. Kennington $
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2017, Alan U. Kennington.
@@ -157,9 +157,9 @@ struct token: public slink {
 struct tokenlist: private s2list {
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
     token* first() const { return (token*)s2list::first(); }
     token* last() const { return (token*)s2list::last(); }
     void append(token* p) { s2list::append(p); }
@@ -171,7 +171,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(token* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(tokenlist& l) { s2list::swallow(&l); }
     void clear() { for (token* p = first(); p; )
         { token* q = p->next(); delete p; p = q; } clearptrs(); }
@@ -206,9 +206,9 @@ struct token_error: public slink {
 struct token_errorlist: private s2list {
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
     token_error* first() const { return (token_error*)s2list::first(); }
     token_error* last() const { return (token_error*)s2list::last(); }
     void append(token_error* p) { s2list::append(p); }
@@ -220,7 +220,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(token_error* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(token_errorlist& l) { s2list::swallow(&l); }
     void clear() { for (token_error* p = first(); p; )
         { token_error* q = p->next(); delete p; p = q; } clearptrs(); }

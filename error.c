@@ -17,6 +17,7 @@ hashtab_strings::
 #include "aksl/error.h"
 
 // Note that all keys must be negative!
+// static const stringkey error_strings[] = {
 static stringkey error_strings[] = {
     "accept failed",                    -eACCEPT_FAILED,
     "attribute block error",            -eATTRIBUTE_BLOCK_ERROR,
@@ -113,6 +114,7 @@ That is, the string field of the last stringkey must be the null string.
 //----------------------------------//
 // hashtab_strings::hashtab_strings //
 //----------------------------------//
+// hashtab_strings::hashtab_strings(const stringkey* strings) {
 hashtab_strings::hashtab_strings(stringkey* strings) {
     if (!strings)
         return;

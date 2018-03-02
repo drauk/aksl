@@ -1,4 +1,4 @@
-// src/aksl/objptr.h   2017-10-25   Alan U. Kennington.
+// src/aksl/objptr.h   2018-3-3   Alan U. Kennington.
 // $Id: src/aksl/include/aksl/objptr.h be54be8f6d 2017-10-25 10:29:45Z Alan U. Kennington $
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2017, Alan U. Kennington.
@@ -67,12 +67,12 @@ struct objptr: public slink {
 //----------------------//
 struct objptrlist: private s2list {
 protected:
-    s2list::clearptrs;
+    using s2list::clearptrs;
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
     objptr* first() const { return (objptr*)s2list::first(); }
     objptr* last() const { return (objptr*)s2list::last(); }
     void append(objptr* p) { s2list::append(p); }
@@ -83,7 +83,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(objptr* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(objptrlist& l) { s2list::swallow(&l); }
     void clear() { for (objptr* p = first(); p; )
         { objptr* q = p->next(); delete p; p = q; } clearptrs(); }
@@ -140,8 +140,8 @@ Class objcatlist:: manages a set of object categories.
 struct objcatlist: private s2list {
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
+    using s2list::empty;
+    using s2list::length;
     objcat* first() const { return (objcat*)s2list::first(); }
     objcat* last() const { return (objcat*)s2list::last(); }
     void append(objcat* p) { s2list::append(p); }
@@ -150,7 +150,7 @@ public:
     objcat* poplast() { return (objcat*)s2list::poplast(); }
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void clear() { for (objcat* p = first(); p; )
         { objcat* q = p->next(); delete p; p = q; } clearptrs(); }
 

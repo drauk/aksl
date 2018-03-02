@@ -1,4 +1,4 @@
-// src/aksl/capsule.h   2017-10-25   Alan U. Kennington.
+// src/aksl/capsule.h   2018-3-3   Alan U. Kennington.
 // $Id: src/aksl/include/aksl/capsule.h be54be8f6d 2017-10-25 10:29:45Z Alan U. Kennington $
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2017, Alan U. Kennington.
@@ -131,9 +131,9 @@ public:
 struct frame8list: private s2list {
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
     frame8* first() const { return (frame8*)s2list::first(); }
     frame8* last() const { return (frame8*)s2list::last(); }
     void append(frame8* p) { s2list::append(p); }
@@ -145,7 +145,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(frame8* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(frame8list& l) { s2list::swallow(&l); }
     void gulp(frame8list& l) { s2list::gulp(&l); }
     void clear() { for (frame8* p = first(); p; )
@@ -191,9 +191,9 @@ struct f8stream: public slink {
 struct f8streamlist: private s2list {
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
     f8stream* first() const { return (f8stream*)s2list::first(); }
     f8stream* last() const { return (f8stream*)s2list::last(); }
     void append(f8stream* p) { s2list::append(p); }
@@ -205,7 +205,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(f8stream* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(f8streamlist& l) { s2list::swallow(&l); }
     void gulp(f8streamlist& l) { s2list::gulp(&l); }
     void clear() { for (f8stream* p = first(); p; )
@@ -261,9 +261,9 @@ public:
 struct frame32list: private s2list {
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
     frame32* first() const { return (frame32*)s2list::first(); }
     frame32* last() const { return (frame32*)s2list::last(); }
     void append(frame32* p) { s2list::append(p); }
@@ -275,7 +275,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(frame32* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(frame32list& l) { s2list::swallow(&l); }
     void gulp(frame32list& l) { s2list::gulp(&l); }
     void clear() { for (frame32* p = first(); p; )
@@ -321,9 +321,9 @@ struct f32stream: public slink {
 struct f32streamlist: private s2list {
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
     f32stream* first() const { return (f32stream*)s2list::first(); }
     f32stream* last() const { return (f32stream*)s2list::last(); }
     void append(f32stream* p) { s2list::append(p); }
@@ -335,7 +335,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(f32stream* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(f32streamlist& l) { s2list::swallow(&l); }
     void gulp(f32streamlist& l) { s2list::gulp(&l); }
     void clear() { for (f32stream* p = first(); p; )

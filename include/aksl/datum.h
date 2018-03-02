@@ -1,4 +1,4 @@
-// src/aksl/datum.h   2017-10-25   Alan U. Kennington.
+// src/aksl/datum.h   2018-3-3   Alan U. Kennington.
 // $Id: src/aksl/include/aksl/datum.h be54be8f6d 2017-10-25 10:29:45Z Alan U. Kennington $
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2017, Alan U. Kennington.
@@ -56,13 +56,13 @@ public:
 //----------------------//
 struct datumlist: private s2list {
 protected:
-    s2list::clearptrs;
+    using s2list::clearptrs;
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
-    s2list::position;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
+    using s2list::position;
     datum* first() const { return (datum*)s2list::first(); }
     datum* last() const { return (datum*)s2list::last(); }
     datum* element(long i) const { return (datum*)s2list::element(i); }
@@ -74,7 +74,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(datum* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(datumlist& l) { s2list::swallow(&l); }
     void clear() { for (datum* p = first(); p; )
         { datum* q = p->next(); delete p; p = q; } clearptrs(); }

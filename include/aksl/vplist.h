@@ -1,4 +1,4 @@
-// src/aksl/vplist.h   2017-10-25   Alan U. Kennington.
+// src/aksl/vplist.h   2018-3-3   Alan U. Kennington.
 // $Id: src/aksl/include/aksl/vplist.h be54be8f6d 2017-10-25 10:29:45Z Alan U. Kennington $
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2017, Alan U. Kennington.
@@ -51,13 +51,13 @@ struct voidptr: public slink {
 //----------------------//
 struct voidptrlist: private s2list {
 protected:
-    s2list::clearptrs;
+    using s2list::clearptrs;
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
-    s2list::position;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
+    using s2list::position;
     voidptr* first() const { return (voidptr*)s2list::first(); }
     voidptr* last() const { return (voidptr*)s2list::last(); }
     voidptr* element(long i) const
@@ -73,7 +73,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(voidptr* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(voidptrlist& l) { s2list::swallow(&l); }
     void gulp(voidptrlist& l) { s2list::gulp(&l); }
     void clear() { for (voidptr* p = first(); p; )
@@ -130,13 +130,13 @@ struct voidptr_b: public voidptr {
 //----------------------//
 struct voidptr_blist: private voidptrlist {
 protected:
-    voidptrlist::clearptrs;
+    using voidptrlist::clearptrs;
 public:
     // The routine members:
-    voidptrlist::empty;
-    voidptrlist::length;
-    voidptrlist::member;
-    voidptrlist::position;
+    using voidptrlist::empty;
+    using voidptrlist::length;
+    using voidptrlist::member;
+    using voidptrlist::position;
     voidptr_b* first() const { return (voidptr_b*)voidptrlist::first(); }
     voidptr_b* last() const { return (voidptr_b*)voidptrlist::last(); }
     voidptr_b* element(long i) const
@@ -152,7 +152,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(voidptr_b* p) { delete remove(p); }
-    voidptrlist::insertafter;
+    using voidptrlist::insertafter;
     void swallow(voidptr_blist& l) { voidptrlist::swallow(l); }
     void gulp(voidptr_blist& l) { voidptrlist::gulp(l); }
     void clear() { for (voidptr_b* p = first(); p; )
@@ -193,13 +193,13 @@ struct voidptrkey: public slink {
 //----------------------//
 struct voidptrkeylist: private s2list {
 protected:
-    s2list::clearptrs;
+    using s2list::clearptrs;
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
-    s2list::position;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
+    using s2list::position;
     voidptrkey* first() const { return (voidptrkey*)s2list::first(); }
     voidptrkey* last() const { return (voidptrkey*)s2list::last(); }
     voidptrkey* element(long i) const
@@ -215,7 +215,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(voidptrkey* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(voidptrkeylist& l) { s2list::swallow(&l); }
     void gulp(voidptrkeylist& l) { s2list::gulp(&l); }
     void clear() { for (voidptrkey* p = first(); p; )
@@ -259,13 +259,13 @@ struct voidptrstr: public slink {
 //----------------------//
 struct voidptrstrlist: private s2list {
 protected:
-    s2list::clearptrs;
+    using s2list::clearptrs;
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
-    s2list::position;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
+    using s2list::position;
     voidptrstr* first() const { return (voidptrstr*)s2list::first(); }
     voidptrstr* last() const { return (voidptrstr*)s2list::last(); }
     voidptrstr* element(long i) const
@@ -279,7 +279,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(voidptrstr* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(voidptrstrlist& l) { s2list::swallow(&l); }
     void gulp(voidptrstrlist& l) { s2list::gulp(&l); }
     void clear() { for (voidptrstr* p = first(); p; )

@@ -17,6 +17,7 @@ work
 .dist_h
 .drauk_install_c
 .drauk_install_h
+.drauk_install_make
 .incinstall
 .libinstall
 .link_work

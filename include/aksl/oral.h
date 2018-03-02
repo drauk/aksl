@@ -1,4 +1,4 @@
-// src/aksl/oral.h   2017-10-25   Alan U. Kennington.
+// src/aksl/oral.h   2018-3-3   Alan U. Kennington.
 // $Id: src/aksl/include/aksl/oral.h be54be8f6d 2017-10-25 10:29:45Z Alan U. Kennington $
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2017, Alan U. Kennington.
@@ -59,8 +59,8 @@ struct object;
 //----------------------//
 struct avaluelist: public s2list {
 public:
-    s2list::empty;
-    s2list::length;
+    using s2list::empty;
+    using s2list::length;
     avalue* first() const { return (avalue*)s2list::first(); }
     avalue* last() const { return (avalue*)s2list::last(); }
     void append(avalue* p) { s2list::append((slink*)p); }
@@ -71,7 +71,7 @@ public:
 //    void dellast() { delete poplast(); }
     inline void delfirst();
     inline void dellast();
-    s2list::insertafter;
+    using s2list::insertafter;
     inline void clear();
 
     int read(token_stream&);
@@ -91,8 +91,8 @@ with no parentheses, and the semantics is slightly extended.
 //----------------------//
 struct acolonlist: public s2list {
 public:
-    s2list::empty;
-    s2list::length;
+    using s2list::empty;
+    using s2list::length;
     avalue* first() const { return (avalue*)s2list::first(); }
     avalue* last() const { return (avalue*)s2list::last(); }
     void append(avalue* p) { s2list::append((slink*)p); }
@@ -103,7 +103,7 @@ public:
 //    void dellast() { delete poplast(); }
     inline void delfirst();
     inline void dellast();
-    s2list::insertafter;
+    using s2list::insertafter;
     inline void clear();
 
     int read(token_stream&);
@@ -180,15 +180,15 @@ struct attrlist: private s2list {
 public:
     attr* first() const { return (attr*)s2list::first(); }
     attr* last() const { return (attr*)s2list::last(); }
-    s2list::empty;
-    s2list::length;
+    using s2list::empty;
+    using s2list::length;
     void append(attr* p) { s2list::append(p); }
     void prepend(attr* p) { s2list::prepend(p); }
     attr* popfirst() { return (attr*)s2list::popfirst(); }
     attr* poplast() { return (attr*)s2list::poplast(); }
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void clear() { for (attr* p = first(); p; )
         { attr* q = p->next(); delete p; p = q; } clearptrs(); }
 
@@ -231,15 +231,15 @@ struct itemlist: private s2list {
 public:
     item* first() const { return (item*)s2list::first(); }
     item* last() const { return (item*)s2list::last(); }
-    s2list::empty;
-    s2list::length;
+    using s2list::empty;
+    using s2list::length;
     void append(item* p) { s2list::append(p); }
     void prepend(item* p) { s2list::prepend(p); }
     item* popfirst() { return (item*)s2list::popfirst(); }
     item* poplast() { return (item*)s2list::poplast(); }
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void clear() { for (item* p = first(); p; )
         { item* q = p->next(); delete p; p = q; } clearptrs(); }
 
@@ -294,9 +294,9 @@ struct itemptr: public slink {
 struct itemptrlist: private s2list {
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
     itemptr* first() const { return (itemptr*)s2list::first(); }
     itemptr* last() const { return (itemptr*)s2list::last(); }
     void append(itemptr* p) { s2list::append(p); }
@@ -308,7 +308,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(itemptr* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(itemptrlist& l) { s2list::swallow(&l); }
     void gulp(itemptrlist& l) { s2list::gulp(&l); }
     void clear() { for (itemptr* p = first(); p; )
@@ -347,15 +347,15 @@ struct oralsystemlist: private s2list {
 public:
     oralsystem* first() const { return (oralsystem*)s2list::first(); }
     oralsystem* last() const { return (oralsystem*)s2list::last(); }
-    s2list::empty;
-    s2list::length;
+    using s2list::empty;
+    using s2list::length;
     void append(oralsystem* p) { s2list::append(p); }
     void prepend(oralsystem* p) { s2list::prepend(p); }
     oralsystem* popfirst() { return (oralsystem*)s2list::popfirst(); }
     oralsystem* poplast() { return (oralsystem*)s2list::poplast(); }
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void clear() { for (oralsystem* p = first(); p; )
         { oralsystem* q = p->next(); delete p; p = q; } clearptrs(); }
 

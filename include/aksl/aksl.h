@@ -1,4 +1,4 @@
-// src/aksl/aksl.h   2017-10-25   Alan U. Kennington.
+// src/aksl/aksl.h   2018-3-3   Alan U. Kennington.
 // $Id: src/aksl/include/aksl/aksl.h be54be8f6d 2017-10-25 10:29:45Z Alan U. Kennington $
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2017, Alan U. Kennington.
@@ -229,8 +229,8 @@ friend struct model;
 private:
     model* mdl;
 public:
-    s2list::empty;
-    s2list::length;
+    using s2list::empty;
+    using s2list::length;
     object* first() const { return (object*)s2list::first(); }
     object* last() const { return (object*)s2list::last(); }
 private:
@@ -350,13 +350,13 @@ public:
 #if AKSL_SYSTM_FEL_STRICT_ORDER
     const event* first() const { return (const event*)min_tim2_heap::first(); }
     const event* last() const { return (const event*)min_tim2_heap::last(); }
-    min_tim2_heap::empty;
-    min_tim2_heap::length;
+    using min_tim2_heap::empty;
+    using min_tim2_heap::length;
 #else
     const event* first() const { return (const event*)min_tim_heap::first(); }
     const event* last() const { return (const event*)min_tim_heap::last(); }
-    min_tim_heap::empty;
-    min_tim_heap::length;
+    using min_tim_heap::empty;
+    using min_tim_heap::length;
 #endif
 
     // The cast in the next line should not be necessary!
@@ -387,7 +387,7 @@ public:
 struct event_heap_traversal: private tim2_heap_traversal {
 public:
     event* next() { return (event*)tim2_heap_traversal::next(); }
-    tim2_heap_traversal::init;
+    using tim2_heap_traversal::init;
 
 //    event_heap_traversal& operator=(const event_heap_traversal& x) {}
 //    event_heap_traversal(const event_heap_traversal& x) {};
@@ -398,7 +398,7 @@ public:
 struct event_heap_traversal: private heap_traversal {
 public:
     event* next() { return (event*)heap_traversal::next(); }
-    heap_traversal::init;
+    using heap_traversal::init;
 
 //    event_heap_traversal& operator=(const event_heap_traversal& x) {}
 //    event_heap_traversal(const event_heap_traversal& x) {};
@@ -431,8 +431,8 @@ public:
 struct globvarlist: private s2list {
 public:
     // The routine members.
-    s2list::empty;
-    s2list::length;
+    using s2list::empty;
+    using s2list::length;
     globvar* first() const { return (globvar*)s2list::first(); }
     globvar* last() const { return (globvar*)s2list::last(); }
     void append(globvar* p) { s2list::append(p); }
@@ -441,7 +441,7 @@ public:
     globvar* poplast() { return (globvar*)s2list::poplast(); }
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void clear() { for (globvar* p = first(); p; )
         { globvar* q = p->next(); delete p; p = q; } clearptrs(); }
 
@@ -510,15 +510,15 @@ public:
     // The routine members.
     systm* first() const { return (systm*)s2list::first(); }
     systm* last() const { return (systm*)s2list::last(); }
-    s2list::empty;
-    s2list::length;
+    using s2list::empty;
+    using s2list::length;
     void append(systm* p) { s2list::append(p); }
     void prepend(systm* p) { s2list::prepend(p); }
     systm* popfirst() { return (systm*)s2list::popfirst(); }
     systm* poplast() { return (systm*)s2list::poplast(); }
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void clear() { for (systm* p = first(); p; )
         { systm* q = p->next(); delete p; p = q; } clearptrs(); }
 
@@ -582,8 +582,8 @@ public:
     // The routine members.
     package* first() const { return (package*)s2list::first(); }
     package* last() const { return (package*)s2list::last(); }
-    s2list::empty;
-    s2list::length;
+    using s2list::empty;
+    using s2list::length;
     void append(package* p) { s2list::append(p); }
     void prepend(package* p) { s2list::prepend(p); }
     package* popfirst() { return (package*)s2list::popfirst(); }
@@ -592,7 +592,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(package* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void clear() { for (package* p = first(); p; )
         { package* q = p->next(); delete p; p = q; } clearptrs(); }
 

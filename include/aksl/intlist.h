@@ -1,4 +1,4 @@
-// src/aksl/intlist.h   2017-10-25   Alan U. Kennington.
+// src/aksl/intlist.h   2018-3-3   Alan U. Kennington.
 // $Id: src/aksl/include/aksl/intlist.h be54be8f6d 2017-10-25 10:29:45Z Alan U. Kennington $
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2017, Alan U. Kennington.
@@ -39,8 +39,8 @@ struct intlink: public slink {
 struct intlist: private s2list {
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
+    using s2list::empty;
+    using s2list::length;
     intlink* first() const { return (intlink*)s2list::first(); }
     intlink* last() const { return (intlink*)s2list::last(); }
     void append(intlink* p) { s2list::append(p); }
@@ -49,7 +49,7 @@ public:
     intlink* poplast() { return (intlink*)s2list::poplast(); }
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void clear() { for (intlink* p = first(); p; )
         { intlink* q = p->next(); delete p; p = q; } clearptrs(); }
 
@@ -83,13 +83,13 @@ struct intkey: public slink {
 //----------------------//
 struct intkeylist: private s2list {
 protected:
-    s2list::clearptrs;
+    using s2list::clearptrs;
 public:
     // The routine members:
-    s2list::empty;
-    s2list::length;
-    s2list::member;
-    s2list::position;
+    using s2list::empty;
+    using s2list::length;
+    using s2list::member;
+    using s2list::position;
     intkey* first() const { return (intkey*)s2list::first(); }
     intkey* last() const { return (intkey*)s2list::last(); }
     intkey* element(long i) const
@@ -103,7 +103,7 @@ public:
     void delfirst() { delete popfirst(); }
     void dellast() { delete poplast(); }
     void delremove(intkey* p) { delete remove(p); }
-    s2list::insertafter;
+    using s2list::insertafter;
     void swallow(intkeylist& l) { s2list::swallow(&l); }
     void gulp(intkeylist& l) { s2list::gulp(&l); }
     void clear() { for (intkey* p = first(); p; )

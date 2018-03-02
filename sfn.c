@@ -1,4 +1,4 @@
-// src/aksl/sfn.c   2017-10-25   Alan U. Kennington.
+// src/aksl/sfn.c   2018-3-3   Alan U. Kennington.
 // $Id: src/aksl/sfn.c be54be8f6d 2017-10-25 10:29:45Z Alan U. Kennington $
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2017, Alan U. Kennington.
@@ -39,7 +39,7 @@ enum sfn_error_t {
     sfnTOUCH
     };
 
-static char* sfn_error_msg[] = {
+static const char* sfn_error_msg[] = {
     "none",
     "length == 0",
     "value == 0",

@@ -1,4 +1,4 @@
-// src/aksl/hashfn.h   2017-10-25   Alan U. Kennington.
+// src/aksl/hashfn.h   2018-3-3   Alan U. Kennington.
 // $Id: src/aksl/include/aksl/hashfn.h be54be8f6d 2017-10-25 10:29:45Z Alan U. Kennington $
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2017, Alan U. Kennington.
@@ -54,7 +54,8 @@ private:
     voidptrkey* trav_ptr;           // For traversals.
     int         trav_i;             // For traversals.
 public:
-    void insert(void* data, uint32 key);    // Over-writes old entry.
+//    void insert(const void* data, uint32 key); // Over-writes old entry.
+    void insert(void* data, uint32 key); // Over-writes old entry.
     void append(void* data, uint32 key);    // Does not over-write old entry.
     void prepend(void* data, uint32 key);   // Does not over-write old entry.
     bool_enum find(void*& data, uint32 key);
