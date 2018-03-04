@@ -1,4 +1,4 @@
-// src/aksl/aksl.h   2018-3-3   Alan U. Kennington.
+// src/aksl/aksl.h   2018-3-4   Alan U. Kennington.
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2018, Alan U. Kennington.
 You may distribute this software under the terms of Alan U. Kennington's
@@ -474,7 +474,7 @@ public:
     void set_trace_level(short t) { trace = t; }
 
     int simulate(double = 1, double = 0);
-    inline object* broadcast(object*, mtype, value* = 0);
+    object* broadcast(object*, mtype, value* = 0);
     int dump(FILE* = stdout) { return 0; }
     const char* sgetglob(const c_string& n);
     int setglob(const c_string& n, value* v = 0)

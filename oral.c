@@ -1,4 +1,4 @@
-// src/aksl/oral.c   2017-10-25   Alan U. Kennington.
+// src/aksl/oral.c   2018-3-4   Alan U. Kennington.
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2018, Alan U. Kennington.
 You may distribute this software under the terms of Alan U. Kennington's
@@ -80,7 +80,7 @@ The default string:             " "
 //         space        //
 //----------------------//
 static void space(ostream& os = cout, int n = 1, const char* s = 0) {
-    static char* deftstring = " ";
+    static const char* deftstring = " ";
     if (!s)
         s = deftstring;
     while (--n >= 0)
