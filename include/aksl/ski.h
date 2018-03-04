@@ -1,4 +1,4 @@
-// src/aksl/ski.h   2018-3-3   Alan U. Kennington.
+// src/aksl/ski.h   2018-3-4   Alan U. Kennington.
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2018, Alan U. Kennington.
 You may distribute this software under the terms of Alan U. Kennington's
@@ -43,8 +43,8 @@ skilist::
 //      stringkey::     //
 //----------------------//
 struct stringkey {
-//    const char* s;
-    char* s;
+//    char* s;
+    const char* s;
     long i;
     }; // End of struct stringkey.
 

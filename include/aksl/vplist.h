@@ -1,4 +1,4 @@
-// src/aksl/vplist.h   2018-3-3   Alan U. Kennington.
+// src/aksl/vplist.h   2018-3-4   Alan U. Kennington.
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2018, Alan U. Kennington.
 You may distribute this software under the terms of Alan U. Kennington's
@@ -174,7 +174,8 @@ public:
 //     voidptrkey::     //
 //----------------------//
 struct voidptrkey: public slink {
-    void*   data;           // Data being stored.
+//    void*   data;           // Data being stored.
+    const void*   data;           // Data being stored.
     long    key;            // Key to data.
 
     voidptrkey* next() const { return (voidptrkey*)slink::next(); }
@@ -182,7 +183,8 @@ struct voidptrkey: public slink {
     voidptrkey& operator=(const voidptrkey& x)
         { data = x.data; key = x.key; return *this; }
     voidptrkey(const voidptrkey& x) { data = x.data; key = x.key; };
-    voidptrkey(void* d, long k) { data = d; key = k; };
+//    voidptrkey(void* d, long k) { data = d; key = k; };
+    voidptrkey(const void* d, long k) { data = d; key = k; };
     voidptrkey() { data = 0; key = 0; }
     ~voidptrkey() {}
     }; // End of struct voidptrkey.
@@ -224,9 +226,11 @@ public:
         { voidptrkey* p = new voidptrkey(data, key); append(p); return p; }
     voidptrkey* prepend(void* data, long key)    // Prepend a record.
         { voidptrkey* p = new voidptrkey(data, key); prepend(p); return p; }
-    voidptrkey* insert(void* data, long key);   // Insert in incr order of key.
+//    voidptrkey* insert(void* data, long key);   // Insert in incr order of key.
+    voidptrkey* insert(const void* data, long key);  // Insert, incr key order.
     voidptrkey* find_data(long key); // Find entry, given key.
-    voidptrkey* find_data(void*& data, long key); // Find data, given key.
+//    voidptrkey* find_data(void*& data, long key); // Find data, given key.
+    voidptrkey* find_data(const void*& data, long key); // Find data, given key.
     voidptrkey* find_key(void* data, long& key);  // Find key, given data.
     voidptrkey* remove_key(long key); // Remove entry for given key.
 

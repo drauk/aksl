@@ -1,4 +1,4 @@
-// src/aksl/hashfn.c   2017-10-25   Alan U. Kennington.
+// src/aksl/hashfn.c   2018-3-4   Alan U. Kennington.
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2018, Alan U. Kennington.
 You may distribute this software under the terms of Alan U. Kennington's
@@ -44,7 +44,8 @@ This function will always over-write an existing entry for the given key.
 //----------------------//
 // hashtab_32_8::insert //
 //----------------------//
-void hashtab_32_8::insert(void* data, uint32 key) {
+// void hashtab_32_8::insert(void* data, uint32 key) {
+void hashtab_32_8::insert(const void* data, uint32 key) {
     int h = int(hashfn_32_8(key)) & mask8;
     table[h].insert(data, long(key));
     } // End of function hashtab_32_8::insert.
@@ -78,7 +79,8 @@ void hashtab_32_8::prepend(void* data, uint32 key) {
 //----------------------//
 //  hashtab_32_8::find  //
 //----------------------//
-bool_enum hashtab_32_8::find(void*& data, uint32 key) {
+// bool_enum hashtab_32_8::find(void*& data, uint32 key) {
+bool_enum hashtab_32_8::find(const void*& data, uint32 key) {
     int h = int(hashfn_32_8(key)) & mask8;
     return table[h].find_data(data, long(key)) ? true : false;
     } // End of function hashtab_32_8::find.
@@ -208,7 +210,8 @@ void hashtab_32_16::prepend(void* data, uint32 key) {
 //----------------------//
 //  hashtab_32_16::find //
 //----------------------//
-bool_enum hashtab_32_16::find(void*& data, uint32 key) {
+// bool_enum hashtab_32_16::find(void*& data, uint32 key) {
+bool_enum hashtab_32_16::find(const void*& data, uint32 key) {
     int h = int(hashfn_32_16(key)) & mask16;
     return table[h].find_data(data, long(key)) ? true : false;
     } // End of function hashtab_32_16::find.

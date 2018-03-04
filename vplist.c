@@ -1,4 +1,4 @@
-// src/aksl/vplist.c   2017-10-25   Alan U. Kennington.
+// src/aksl/vplist.c   2018-3-4   Alan U. Kennington.
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2018, Alan U. Kennington.
 You may distribute this software under the terms of Alan U. Kennington's
@@ -153,7 +153,8 @@ This function will over-write any previous value for the given key.
 //--------------------------//
 //  voidptrkeylist::insert  //
 //--------------------------//
-voidptrkey* voidptrkeylist::insert(void* data, long key) {
+// voidptrkey* voidptrkeylist::insert(void* data, long key) {
+voidptrkey* voidptrkeylist::insert(const void* data, long key) {
     voidptrkey *p = 0, *q = 0;
     forall(p, *this) {
         if (p->key <= key)
@@ -189,7 +190,8 @@ Find an entry in the table, given the key, and return the data too.
 //------------------------------//
 //   voidptrkeylist::find_data  //
 //------------------------------//
-voidptrkey* voidptrkeylist::find_data(void*& data, long key) {
+// voidptrkey* voidptrkeylist::find_data(void*& data, long key) {
+voidptrkey* voidptrkeylist::find_data(const void*& data, long key) {
     voidptrkey* p = 0;
     forall(p, *this)
         if (p->key == key)

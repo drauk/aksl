@@ -1,4 +1,4 @@
-// src/aksl/hashfn.h   2018-3-3   Alan U. Kennington.
+// src/aksl/hashfn.h   2018-3-4   Alan U. Kennington.
 /*-----------------------------------------------------------------------------
 Copyright (C) 1989-2018, Alan U. Kennington.
 You may distribute this software under the terms of Alan U. Kennington's
@@ -53,15 +53,17 @@ private:
     voidptrkey* trav_ptr;           // For traversals.
     int         trav_i;             // For traversals.
 public:
-//    void insert(const void* data, uint32 key); // Over-writes old entry.
-    void insert(void* data, uint32 key); // Over-writes old entry.
+//    void insert(void* data, uint32 key); // Over-writes old entry.
+    void insert(const void* data, uint32 key); // Over-writes old entry.
     void append(void* data, uint32 key);    // Does not over-write old entry.
     void prepend(void* data, uint32 key);   // Does not over-write old entry.
-    bool_enum find(void*& data, uint32 key);
+//    bool_enum find(void*& data, uint32 key);
+    bool_enum find(const void*& data, uint32 key);
     bool_enum del(uint32 key);              // Delete entry for given key.
 
     // These versions only work if a void* fits into a uint32.
-    void insert(void* data, void* key) { insert(data, uint32(key)); }
+//    void insert(void* data, void* key) { insert(data, uint32(key)); }
+    void insert(const void* data, void* key) { insert(data, uint32(key)); }
     void append(void* data, void* key) { append(data, uint32(key)); }
     void prepend(void* data, void* key) { prepend(data, uint32(key)); }
     bool_enum find(void*& data, void* key) { return find(data, uint32(key)); }
@@ -70,7 +72,9 @@ public:
     // Kludge versions which take a "double" key (using double hashing):
     // Should replace these with single hashing.
     // Danger, danger! Don't use these functions. Non-unique storage!!!!
-    void insert(void* data, double key) { insert(data, hashfn_d_32(key)); }
+//    void insert(void* data, double key) { insert(data, hashfn_d_32(key)); }
+    void insert(const void* data, double key)
+        { insert(data, hashfn_d_32(key)); }
     void append(void* data, double key) { append(data, hashfn_d_32(key)); }
     void prepend(void* data, double key) { prepend(data, hashfn_d_32(key)); }
     bool_enum find(void*& data, double key)
@@ -103,7 +107,8 @@ public:
     void insert(void* data, uint32 key);    // Over-writes old entry.
     void append(void* data, uint32 key);    // Does not over-write old entry.
     void prepend(void* data, uint32 key);   // Does not over-write old entry.
-    bool_enum find(void*& data, uint32 key);
+//    bool_enum find(void*& data, uint32 key);
+    bool_enum find(const void*& data, uint32 key);
 
     // These versions only work if a void* fits into a uint32.
     void insert(void* data, void* key) { insert(data, uint32(key)); }
