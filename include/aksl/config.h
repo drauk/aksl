@@ -1,6 +1,5 @@
 /* include/aksl/config.h.  Generated from config.h.in by configure.  */
 /* src/aksl/include/aksl/config.h.in   2017-10-25   Alan U. Kennington.  */
-/* $Id: src/aksl/include/aksl/config.h.in be54be8f6d 2017-10-25 10:29:45Z Alan U. Kennington $ */
 
 #ifndef AKSL_CONFIG_H
 #define AKSL_CONFIG_H
