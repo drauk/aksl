@@ -1,8 +1,9 @@
 aksl_c.dep
 aksl_h.dep
+aksl-0.9.5
 aksl-0.9.5.tar
 aksl-0.9.5.tar.bz2
-aksl-0.9.5
+aksl-0.9.5.tgz
 config.cache
 config.log
 config.status
@@ -10,6 +11,7 @@ errorfile
 include/aksl/makefile
 include/aksl/makefile.pub
 libaksl.a
+autom4te.cache
 work
 .dist
 .dist_c

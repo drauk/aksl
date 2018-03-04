@@ -24,11 +24,11 @@ INCDIR      = $S/include/aksl
 SRCDIR      = $S/src/aksl
 INCLUDES    = -I../include
 
-CPLUSPLUS   = g++
-CPLUSPLUS_E = g++ -E
+CPLUSPLUS   = @CXX@
+CPLUSPLUS_E = @CXXCPP@
 CC_OPTIONS  = -O $(INCLUDES)
-LN_S        = ln -s
-RANLIB      = ranlib
+LN_S        = @LN_S@
+RANLIB      = @RANLIB@
 
 # Location of all the exported header files.
 I           = include/aksl

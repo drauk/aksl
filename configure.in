@@ -1,0 +1,40 @@
+dnl Process this file with autoconf to produce a configure script.
+dnl src/aksl/configure.in   2018-3-4   Alan U. Kennington.
+
+AC_INIT(include/aksl/aksl.h)
+AC_CONFIG_HEADER(include/aksl/config.h)
+
+dnl Checks for library functions.
+AC_PROG_GCC_TRADITIONAL
+
+dnl Checks for programs.
+AC_PROG_CXX
+AC_PROG_CXXCPP
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_MAKE_SET
+AC_PROG_RANLIB
+
+dnl Checks for libraries.
+
+dnl Checks for header files.
+AC_HEADER_STDC
+
+AC_CHECK_HEADERS(fcntl.h limits.h malloc.h sys/ioctl.h sys/limits.h \
+ sys/time.h unistd.h pcap.h)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_C_INLINE
+AC_TYPE_SIZE_T
+AC_HEADER_TIME
+AC_STRUCT_TM
+
+dnl Checks for library functions.
+AC_PROG_GCC_TRADITIONAL
+AC_TYPE_SIGNAL
+AC_FUNC_STRFTIME
+AC_FUNC_VPRINTF
+AC_CHECK_FUNCS(gettimeofday select socket strstr strtod strtol snprintf)
+
+AC_OUTPUT(makefile)
