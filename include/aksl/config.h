@@ -77,6 +77,6 @@
 #define HAVE_UNISTD_H 1
 
 /* Define if you have the <pcap.h> header file.  */
-/* #undef HAVE_PCAP_H */
+#define HAVE_PCAP_H 1
 
 #endif /* AKSL_CONFIG_H */
